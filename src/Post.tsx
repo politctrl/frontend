@@ -8,10 +8,16 @@ interface IPostProps {
 }
 
 const PostContainer = styled.div`
-  background-color: #e8e8e8;
+  // background-color: #e8e8e8;
   padding: 16px;
   border-radius: 5px;
-  border: 1px #000000;
+  border: 1px solid hsla(0, 0%, 50%, 0.4);
+  overflow-wrap: break-word;
+  box-shadow: -6px 6px 12px 0px hsla(0, 0%, 50%, 0.05);
+`;
+
+const Blockquote = styled.blockquote`
+  margin: 0 16px;
 `;
 
 class Post extends Component<IPostProps, {}> {
@@ -19,7 +25,9 @@ class Post extends Component<IPostProps, {}> {
     return (
       <PostContainer>
         <PostAuthor author={this.props.post.author} />
-        <p>{this.props.post.content}</p>
+        <Blockquote>
+          <p>{this.props.post.content}</p>
+        </Blockquote>
       </PostContainer>
     );
   }
