@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PostAuthor from './PostAuthor';
 import { IPost } from './models';
+import PostFooter from './PostFooter';
 
 interface IPostProps {
   post: IPost;
@@ -24,10 +25,11 @@ class Post extends Component<IPostProps, {}> {
   render() {
     return (
       <PostContainer>
-        <PostAuthor author={this.props.post.author} />
+        <PostAuthor author={this.props.post.author} service={this.props.post.service} />
         <Blockquote>
           <p>{this.props.post.content}</p>
         </Blockquote>
+        <PostFooter post={this.props.post} />
       </PostContainer>
     );
   }

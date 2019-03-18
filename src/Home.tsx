@@ -34,7 +34,7 @@ class Home extends Component<{}, HomeState> {
         <HomeContainer>
           <Grid flow="dense"
             columns="repeat(auto-fit,minmax(360px,1fr))"
-            gap="32px"
+            gap="26px"
             alignContent="space-around">
             { this.state.posts.map(post =>
               <Cell key={post.id}><Post post={post} /></Cell>) }

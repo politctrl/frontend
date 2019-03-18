@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 
 const Container = styled.div`
-  font-family: Lato, Roboto, 'Noto Sans';
+  font-family: Lato, Roboto, Arial, 'Noto Sans', sans-serif;
 `;
 
 class App extends Component {
