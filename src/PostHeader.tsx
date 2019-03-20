@@ -38,12 +38,12 @@ const ServiceLogo = styled.img`
   height: 24px;
 `;
 
-class PostAuthor extends Component<IPostAuthorProps> {
+class PostHeader extends Component<IPostAuthorProps> {
   render() {
     const props = this.props;
     return (
       <span>
-        <Image src="https://pbs.twimg.com/profile_images/590508740010348544/eS1F7mN5_normal.png" />
+        <Image src={props.author.owner.photo} />
         <AuthorNameContainer>
           <StyledLink bold to={`/person/${props.author.owner.id}`}>
             {props.author.owner.displayName}
@@ -61,4 +61,4 @@ class PostAuthor extends Component<IPostAuthorProps> {
   }
 }
 
-export default PostAuthor;
+export default PostHeader;

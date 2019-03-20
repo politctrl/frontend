@@ -30,4 +30,5 @@ export interface IAccountOwner {
   displayName: string;
   type: string;
   active: boolean;
+  photo: string;
 }

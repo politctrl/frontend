@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import PostAuthor from './PostAuthor';
+import PostHeader from './PostHeader';
 import { IPost } from './models';
 import PostFooter from './PostFooter';
 
@@ -25,7 +25,7 @@ class Post extends Component<IPostProps, {}> {
   render() {
     return (
       <PostContainer>
-        <PostAuthor author={this.props.post.author} service={this.props.post.service} />
+        <PostHeader author={this.props.post.author} service={this.props.post.service} />
         <Blockquote>
           <p>{this.props.post.content}</p>
         </Blockquote>
