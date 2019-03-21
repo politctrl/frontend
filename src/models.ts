@@ -2,6 +2,7 @@ export interface IPost {
   id: number;
   content: string;
   author: IAccount;
+  embeds: IEmbed[];
   service: string;
   externalId: string;
   createTimestamp: string;

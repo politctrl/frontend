@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PostHeader from './PostHeader';
 import { IPost } from './models';
 import PostFooter from './PostFooter';
+import PostEmbedThumbnail from './PostEmbedThumbnail';
 
 interface IPostProps {
   post: IPost;
@@ -29,6 +30,7 @@ class Post extends Component<IPostProps, {}> {
         <Blockquote>
           <p>{this.props.post.content}</p>
         </Blockquote>
+        { this.props.post.embeds.map(e => <PostEmbedThumbnail embed={e} />) }
         <PostFooter post={this.props.post} />
       </PostContainer>
     );
