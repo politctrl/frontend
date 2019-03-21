@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const Nav = styled.nav`
+  margin: 16px;
+`;
+
 const AppNameLink = styled(Link)`
   color: #000000;
   text-decoration: none;
@@ -11,14 +15,22 @@ const AppNameLink = styled(Link)`
   }
 `;
 
+const AppLogo = styled.img`
+  max-height: 50px;
+
+  :hover {
+    opacity: 75%;
+  }
+`;
+
 class Navbar extends Component {
   render() {
     return (
-      <nav>
+      <Nav>
         <AppNameLink to="/">
-          <h1>PolitCtrl</h1>
+          <AppLogo src="/horizontal-black-transparent-bg.png" />
         </AppNameLink>
-      </nav>
+      </Nav>
     );
   }
 }

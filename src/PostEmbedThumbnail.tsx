@@ -11,6 +11,8 @@ const ThumbnailContainer = styled.div`
   width: 200px;
   height: 200px;
   overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 8px;
 `;
 
 const Thumbnail = styled.img`
