@@ -3,16 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav = styled.nav`
-  margin: 16px;
-`;
-
-const AppNameLink = styled(Link)`
-  color: #000000;
-  text-decoration: none;
-
-  :hover {
-    text-decoration-line: underline;
-  }
+  background-color: ${props => props.theme.bgColor};
+  border: 16px solid ${props => props.theme.bgColor};
 `;
 
 const AppLogo = styled.img`
@@ -27,9 +19,9 @@ class Navbar extends Component {
   render() {
     return (
       <Nav>
-        <AppNameLink to="/">
+        <Link to="/">
           <AppLogo src="/horizontal-black-transparent-bg.png" />
-        </AppNameLink>
+        </Link>
       </Nav>
     );
   }

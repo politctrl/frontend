@@ -21,7 +21,7 @@ const AuthorNameContainer = styled.span`
 
 const StyledLink = styled(Link)<{ bold?: boolean }>`
   text-decoration: none;
-  color: initial;
+  color: ${props => props.theme.textColor};
 
   ${props => props.bold && css`
     font-weight: bold;

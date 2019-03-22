@@ -10,7 +10,7 @@ interface HomeState {
 }
 
 const HomeContainer = styled.div`
-  // background-color: #b5b5b5;
+  background-color: ${props => props.theme.bgColor};
   padding: 16px;
 `;
 

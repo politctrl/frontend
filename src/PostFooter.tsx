@@ -8,7 +8,8 @@ interface IPostFooter {
 }
 
 const Footer = styled.span`
-  color: rgba(0, 0, 0, 50%);
+  color: ${props => props.theme.textColor};
+  opacity: 0.5;
   font-size: 85%;
 `;
 

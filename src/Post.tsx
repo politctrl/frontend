@@ -10,7 +10,8 @@ interface IPostProps {
 }
 
 const PostContainer = styled.div`
-  // background-color: #e8e8e8;
+  color: ${props => props.theme.textColor};
+  background-color: ${props => props.theme.bgColor};
   padding: 16px;
   border-radius: 5px;
   border: 1px solid hsla(0, 0%, 50%, 0.4);

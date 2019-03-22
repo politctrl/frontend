@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Home from './Home';
 
 const Container = styled.div`
+  background-color: ${props => props.theme.bgColor};
   font-family: Lato, Roboto, Arial, 'Noto Sans', sans-serif;
 `;
 
