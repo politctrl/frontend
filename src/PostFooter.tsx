@@ -25,7 +25,7 @@ class PostFooter extends Component<IPostFooter> {
       )} ꞏ Posted on {format(
         parseInt(post.createTimestamp, 10),
         'yyyy-MM-dd HH:mm:ss',
-      )}
+      )} {post.app ? `via ${post.app}` : ''}
       </Footer>
     );
   }

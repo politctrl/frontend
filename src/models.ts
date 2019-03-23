@@ -8,6 +8,7 @@ export interface IPost {
   createTimestamp: string;
   deleted: boolean;
   deleteTimestamp: string | null;
+  app?: string;
 }
 
 export interface IEmbed {
