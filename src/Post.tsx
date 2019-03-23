@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Twemoji } from 'react-emoji-render';
 import PostHeader from './PostHeader';
 import { IPost } from './models';
 import PostFooter from './PostFooter';
@@ -29,7 +30,7 @@ class Post extends Component<IPostProps, {}> {
       <PostContainer>
         <PostHeader author={this.props.post.author} service={this.props.post.service} />
         <Blockquote>
-          <p>{this.props.post.content}</p>
+          <p><Twemoji text={this.props.post.content} /></p>
         </Blockquote>
         { this.props.post.embeds.map(e => <PostEmbedThumbnail embed={e} />) }
         <PostFooter post={this.props.post} />

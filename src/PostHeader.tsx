@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IAccount } from './models';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { Twemoji } from 'react-emoji-render';
 
 interface IPostAuthorProps {
   author: IAccount;
@@ -46,11 +47,11 @@ class PostHeader extends Component<IPostAuthorProps> {
         <Image src={props.author.owner.photo} />
         <AuthorNameContainer>
           <StyledLink bold to={`/person/${props.author.owner.id}`}>
-            {props.author.owner.displayName}
+            <Twemoji text={props.author.owner.displayName} />
           </StyledLink>
           {' '}
           @<StyledLink to={`/account/${props.author.id}`}>
-            {props.author.displayName}
+            <Twemoji text={props.author.displayName} />
           </StyledLink>
           <ServiceLogo
             src={`${process.env.REACT_APP_DOMAIN}/services/${props.service}.png`}
