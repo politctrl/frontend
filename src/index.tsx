@@ -6,10 +6,14 @@ import 'normalize.css';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from './Theme';
 
+const currentHour = new Date().getHours();
+
+const colorMode = currentHour > 6 && 18 > currentHour ? 'bright' : 'dark';
+
 ReactDOM.render(
   (
-    <ThemeProvider theme={Theme}>
-      <App />
+    <ThemeProvider theme={Theme[colorMode]}>
+      <App theme={Theme[colorMode]} />
     </ThemeProvider>
   ),
   document.getElementById('root'));

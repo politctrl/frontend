@@ -15,12 +15,12 @@ const AppLogo = styled.img`
   }
 `;
 
-class Navbar extends Component {
+class Navbar extends Component<any> {
   render() {
     return (
       <Nav>
         <Link to="/">
-          <AppLogo src="/horizontal-black-transparent-bg.png" />
+          <AppLogo src={this.props.theme.logoPath} />
         </Link>
       </Nav>
     );

@@ -9,12 +9,12 @@ const Container = styled.div`
   font-family: Lato, Roboto, Arial, 'Noto Sans', sans-serif;
 `;
 
-class App extends Component {
+class App extends Component<any> {
   render() {
     return (
       <Router>
         <Container>
-          <Navbar />
+          <Navbar theme={this.props.theme} />
 
           <Route exact path="/" component={Home} />
         </Container>
