@@ -8,7 +8,8 @@ import { Theme } from './Theme';
 
 const currentHour = new Date().getHours();
 
-const colorMode = currentHour > 6 && 18 > currentHour ? 'bright' : 'dark';
+// const colorMode = currentHour > 6 && 18 > currentHour ? 'bright' : 'dark';
+const colorMode = 'dark';
 
 ReactDOM.render(
   (
