@@ -14,17 +14,33 @@ const Footer = styled.span`
 `;
 
 const PostFooter = ({ post }: IPostFooter) => {
-  if (!post.deleteTimestamp) return null;
-  return (
-    <Footer>Deleted {formatDistance(
-      parseInt(post.deleteTimestamp, 10),
-      parseInt(post.createTimestamp, 10),
+  const texts = [];
+
+  const { createTimestamp, deleteTimestamp, app } = post;
+  if (deleteTimestamp) {
+    texts.push(`Deleted ${formatDistance(
+      parseInt(deleteTimestamp, 10),
+      parseInt(createTimestamp, 10),
       { addSuffix: true },
-    )} ꞏ Posted on {format(
-      parseInt(post.createTimestamp, 10),
-      'yyyy-MM-dd HH:mm:ss',
-    )} {post.app ? `via ${post.app}` : ''}
-    </Footer>
+    )}, ${formatDistance(
+      parseInt(deleteTimestamp, 10),
+      new Date(),
+      { addSuffix: true },
+    )}`);
+  } else {
+    texts.push('Deleted on unknown time');
+  }
+  texts.push(`Posted on ${format(
+    parseInt(createTimestamp, 10),
+    'yyyy-MM-dd HH:mm:ss',
+  )}, ${formatDistance(
+    parseInt(createTimestamp, 10),
+    new Date(),
+    { addSuffix: true },
+  )} ${app ? `via ${app}` : ''}`);
+
+  return (
+    <Footer>{ texts.join(' ꞏ ') }</Footer>
   );
 };
 
