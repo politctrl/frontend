@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Grid, Cell } from 'styled-css-grid';
 import Post from './Post';
@@ -13,21 +13,18 @@ const HomeContainer = styled.div`
   padding: 16px;
 `;
 
-class PostGrid extends Component<PostGridProps> {
-  render() {
-    const { posts } = this.props;
-    return (
-      <HomeContainer>
-        <Grid flow="dense"
-          columns="repeat(auto-fit,minmax(360px,1fr))"
-          gap="26px"
-          alignContent="space-around">
-          { posts.map(post =>
-            <Cell key={post.id}><Post post={post} /></Cell>) }
-        </Grid>
-      </HomeContainer>
-    );
-  }
-}
+const PostGrid = ({ posts }: PostGridProps) => {
+  return (
+    <HomeContainer>
+      <Grid flow="dense"
+        columns="repeat(auto-fit,minmax(360px,1fr))"
+        gap="26px"
+        alignContent="space-around">
+        { posts.map(post =>
+          <Cell key={post.id}><Post post={post} /></Cell>) }
+      </Grid>
+    </HomeContainer>
+  );
+};
 
 export default PostGrid;

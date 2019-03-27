@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
 interface LoaderProps {
   error: {} | null;
   isLoading: boolean;
+  children: any;
 }
 
 const LoadingContainer = styled.div`
@@ -38,27 +39,24 @@ const LoadingAnimation = styled.div`
   }
 `;
 
-class Loader extends Component<LoaderProps> {
-  render() {
-    const { error, isLoading } = this.props;
-    if (error) {
-      return (
-        <div>
-          <h3>Ooppsie wooppsie!</h3>
-          <p>{error.toString()}</p>
-        </div>
-      );
-    }
-    if (isLoading) {
-      return (
-        <LoadingContainer>
-          <LoadingAnimation></LoadingAnimation>
-          <LoadingText>Loading...</LoadingText>
-        </LoadingContainer>
-      );
-    }
-    return this.props.children;
+const Loader = ({ error, isLoading, children }: LoaderProps) => {
+  if (error) {
+    return (
+      <div>
+        <h3>Ooppsie wooppsie!</h3>
+        <p>{error.toString()}</p>
+      </div>
+    );
   }
-}
+  if (isLoading) {
+    return (
+      <LoadingContainer>
+        <LoadingAnimation></LoadingAnimation>
+        <LoadingText>Loading...</LoadingText>
+      </LoadingContainer>
+    );
+  }
+  return children;
+};
 
 export default Loader;

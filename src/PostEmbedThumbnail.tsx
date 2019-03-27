@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IEmbed } from './models';
 import styled from 'styled-components';
 
@@ -24,22 +24,18 @@ const Thumbnail = styled.img`
   transform: translate(-50%,-50%);
 `;
 
-class PostEmbedThumbnail extends Component<IPostEmbedThumbnailProps> {
-  render() {
-    const embed = this.props.embed;
-
-    /**
-     * "rel" prop in <a> tag avoids to release window.opener to opened site
-     * Some more info on this vulnerability: https://bit.ly/2gUMutQ
-     */
-    return (
-      <a href={embed.url} target="_blank" rel="noopener noreferrer">
-        <ThumbnailContainer>
-          <Thumbnail src={embed.url} />
-        </ThumbnailContainer>
-      </a>
-    );
-  }
-}
+const PostEmbedThumbnail = ({ embed }: IPostEmbedThumbnailProps) => {
+  /**
+   * "rel" prop in <a> tag avoids to release window.opener to opened site
+   * Some more info on this vulnerability: https://bit.ly/2gUMutQ
+   */
+  return (
+    <a href={embed.url} target="_blank" rel="noopener noreferrer">
+      <ThumbnailContainer>
+        <Thumbnail src={embed.url} />
+      </ThumbnailContainer>
+    </a>
+  );
+};
 
 export default PostEmbedThumbnail;

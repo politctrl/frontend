@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IAccount } from './models';
 import { StyledLink } from './Random';
 import styled from 'styled-components';
 import { Twemoji } from 'react-emoji-render';
 
-interface IPostAuthorProps {
+interface PostHeaderProps {
   author: IAccount;
   service: string;
 }
@@ -26,27 +26,24 @@ const ServiceLogo = styled.img`
   height: 24px;
 `;
 
-class PostHeader extends Component<IPostAuthorProps> {
-  render() {
-    const props = this.props;
-    return (
-      <span>
-        <Image src={props.author.owner.photo} />
-        <AuthorNameContainer>
-          <StyledLink bold to={`/account_owner/${props.author.owner.id}`}>
-            <Twemoji text={props.author.owner.displayName} />
-          </StyledLink>
-          {' '}
-          @<StyledLink to={`/account/${props.author.id}`}>
-            <Twemoji text={props.author.displayName} />
-          </StyledLink>
-          <ServiceLogo
-            src={`${process.env.REACT_APP_DOMAIN}/services/${props.service}.png`}
-            alt={`Originally sent on ${props.service}`} />
-        </AuthorNameContainer>
-      </span>
-    );
-  }
-}
+const PostHeader = ({ author, service }: PostHeaderProps) => {
+  return (
+    <span>
+      <Image src={author.owner.photo} />
+      <AuthorNameContainer>
+        <StyledLink bold to={`/account_owner/${author.owner.id}`}>
+          <Twemoji text={author.owner.displayName} />
+        </StyledLink>
+        {' '}
+        @<StyledLink to={`/account/${author.id}`}>
+          <Twemoji text={author.displayName} />
+        </StyledLink>
+        <ServiceLogo
+          src={`${process.env.REACT_APP_DOMAIN}/services/${service}.png`}
+          alt={`Originally sent on ${service}`} />
+      </AuthorNameContainer>
+    </span>
+  );
+};
 
 export default PostHeader;

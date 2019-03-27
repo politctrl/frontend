@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { StyledLink } from './Random';
 import { IAccount } from './models';
@@ -28,25 +28,22 @@ const Username = styled.span`
   font-size: 20pt;
 `;
 
-class AccountHeader extends Component<AccountHeaderProps> {
-  render() {
-    const { account } = this.props;
-    return (
-      <AccountContainer>
-        <Avatar src={account.owner.photo} />
-        <br />
-        <span>
-          <AccountOwnerLink bold to={`/account_owner/${account.owner.id}`}>
-            {account.owner.displayName}
-          </AccountOwnerLink>
-        </span>
-        <br />
-        <Username>
-          @{account.displayName}
-        </Username>
-      </AccountContainer>
-    );
-  }
-}
+const AccountHeader = ({ account }: AccountHeaderProps) => {
+  return (
+    <AccountContainer>
+      <Avatar src={account.owner.photo} />
+      <br />
+      <span>
+        <AccountOwnerLink bold to={`/account_owner/${account.owner.id}`}>
+          {account.owner.displayName}
+        </AccountOwnerLink>
+      </span>
+      <br />
+      <Username>
+        @{account.displayName}
+      </Username>
+    </AccountContainer>
+  );
+};
 
 export default AccountHeader;

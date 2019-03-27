@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { StyledLink } from './Random';
 import { IAccountOwner } from './models';
@@ -29,22 +29,19 @@ const Username = styled(StyledLink)`
   font-size: 18pt;
 `;
 
-class AccountOwnerHeader extends Component<AccountOwnerHeaderProps> {
-  render() {
-    const { accountOwner } = this.props;
-    return (
-      <AccountOwnerContainer>
-        <Avatar src={accountOwner.photo} />
-        <br />
-        <AccountOwnerName>{accountOwner.displayName}</AccountOwnerName>
-        <br />
-        Known as: { accountOwner.accounts
-          .map(a => <Username to={`/account/${a.id}`} key={`a${a.id}`}>
-            @{a.displayName}
-          </Username>) }
-      </AccountOwnerContainer>
-    );
-  }
-}
+const AccountOwnerHeader = ({ accountOwner }: AccountOwnerHeaderProps) => {
+  return (
+    <AccountOwnerContainer>
+      <Avatar src={accountOwner.photo} />
+      <br />
+      <AccountOwnerName>{accountOwner.displayName}</AccountOwnerName>
+      <br />
+      Known as: { accountOwner.accounts
+        .map(a => <Username to={`/account/${a.id}`} key={`a${a.id}`}>
+          @{a.displayName}
+        </Username>) }
+    </AccountOwnerContainer>
+  );
+};
 
 export default AccountOwnerHeader;

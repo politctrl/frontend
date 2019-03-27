@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,16 +15,14 @@ const AppLogo = styled.img`
   }
 `;
 
-class Navbar extends Component<any> {
-  render() {
-    return (
-      <Nav>
-        <Link to="/">
-          <AppLogo src={this.props.theme.logoPath} />
-        </Link>
-      </Nav>
-    );
-  }
-}
+const Navbar = ({ theme }: any) => {
+  return (
+    <Nav>
+      <Link to="/">
+        <AppLogo src={theme.logoPath} />
+      </Link>
+    </Nav>
+  );
+};
 
 export default Navbar;

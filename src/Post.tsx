@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Twemoji } from 'react-emoji-render';
 import PostHeader from './PostHeader';
@@ -24,19 +24,17 @@ const Blockquote = styled.blockquote`
   margin: 0 16px;
 `;
 
-class Post extends Component<IPostProps, {}> {
-  render() {
-    return (
-      <PostContainer>
-        <PostHeader author={this.props.post.author} service={this.props.post.service} />
-        <Blockquote>
-          <p><Twemoji text={this.props.post.content} /></p>
-        </Blockquote>
-        { this.props.post.embeds.map(e => <PostEmbedThumbnail embed={e} />) }
-        <PostFooter post={this.props.post} />
-      </PostContainer>
-    );
-  }
-}
+const Post = ({ post }: IPostProps) => {
+  return (
+    <PostContainer>
+      <PostHeader author={post.author} service={post.service} />
+      <Blockquote>
+        <p><Twemoji text={post.content} /></p>
+      </Blockquote>
+      { post.embeds.map(e => <PostEmbedThumbnail embed={e} />) }
+      <PostFooter post={post} />
+    </PostContainer>
+  );
+};
 
 export default Post;
