@@ -8,8 +8,11 @@ import { Theme } from './Theme';
 
 const currentHour = new Date().getHours();
 
-// const colorMode = currentHour > 6 && 18 > currentHour ? 'bright' : 'dark';
-const colorMode = 'dark';
+const colorMode = currentHour > 6 && 18 > currentHour ? 'bright' : 'dark';
+// const colorMode = 'dark';
+
+// hacky fix for blinking white background on dark mode
+document.getElementsByTagName('body')[0].style.backgroundColor = Theme[colorMode].bgColor;
 
 ReactDOM.render(
   (

@@ -34,7 +34,7 @@ const AccountHeader = ({ account }: AccountHeaderProps) => {
       <Avatar src={account.owner.photo} />
       <br />
       <span>
-        <AccountOwnerLink bold to={`/account_owner/${account.owner.id}`}>
+        <AccountOwnerLink bold={true} to={`/account_owner/${account.owner.id}`}>
           {account.owner.displayName}
         </AccountOwnerLink>
       </span>

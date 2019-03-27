@@ -21,7 +21,9 @@ const PostGrid = ({ posts }: PostGridProps) => {
         gap="26px"
         alignContent="space-around">
         { posts.map(post =>
-          <Cell key={post.id}><Post post={post} /></Cell>) }
+          <Cell key={`cell_post_${post.id}`}>
+            <Post key={`post_${post.id}`} post={post} />
+          </Cell>) }
       </Grid>
     </HomeContainer>
   );

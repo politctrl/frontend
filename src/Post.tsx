@@ -31,7 +31,7 @@ const Post = ({ post }: IPostProps) => {
       <Blockquote>
         <p><Twemoji text={post.content} /></p>
       </Blockquote>
-      { post.embeds.map(e => <PostEmbedThumbnail embed={e} />) }
+      { post.embeds.map(e => <PostEmbedThumbnail key={`embed_thumb_${e.id}`} embed={e} />) }
       <PostFooter post={post} />
     </PostContainer>
   );
