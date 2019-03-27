@@ -3,6 +3,7 @@ import { request } from '../Requests';
 import { IAccount, IPost } from '../models';
 import AccountHeader from '../AccountHeader';
 import PostGrid from '../PostGrid';
+import Loader from '../Loaders';
 
 interface AccountProps {
   match: {
@@ -26,23 +27,14 @@ class Account extends Component<AccountProps, AccountState> {
 
   render() {
     const { error, account, posts } = this.state;
-    if (error) {
-      return (
+    return (
+      <Loader error={error} isLoading={!account && !posts}>
         <div>
-          <h3>Ooppsie wooppsie!</h3>
-          <p>{error.toString()}</p>
+          { account && <AccountHeader account={account} /> }
+          { posts && <PostGrid posts={posts} /> }
         </div>
-      );
-    }
-    if (account && posts) {
-      return (
-        <div>
-          <AccountHeader account={account} />
-          <PostGrid posts={posts} />
-        </div>
-      );
-    }
-    return <p>Loading...</p>;
+      </Loader>
+    );
   }
 
   async componentDidMount() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from './Navbar';
-import { Home, Account } from './screens';
+import { Home, Account, AccountOwner } from './screens';
 
 const Container = styled.div`
   background-color: ${props => props.theme.bgColor};
@@ -18,6 +18,7 @@ class App extends Component<any> {
 
           <Route exact path="/" component={Home} />
           <Route path="/account/:id" component={Account} />
+          <Route path="/account_owner/:id" component={AccountOwner} />
         </Container>
       </Router>
     );

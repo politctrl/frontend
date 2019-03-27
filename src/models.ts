@@ -33,4 +33,5 @@ export interface IAccountOwner {
   type: string;
   active: boolean;
   photo: string;
+  accounts: IAccount[];
 }

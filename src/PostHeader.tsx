@@ -33,7 +33,7 @@ class PostHeader extends Component<IPostAuthorProps> {
       <span>
         <Image src={props.author.owner.photo} />
         <AuthorNameContainer>
-          <StyledLink bold to={`/person/${props.author.owner.id}`}>
+          <StyledLink bold to={`/account_owner/${props.author.owner.id}`}>
             <Twemoji text={props.author.owner.displayName} />
           </StyledLink>
           {' '}

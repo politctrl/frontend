@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { IPost } from '../models';
 import { request } from '../Requests';
 import PostGrid from '../PostGrid';
+import Loader from '../Loaders';
 
 interface HomeState {
   posts: IPost[] | null;
@@ -15,20 +16,12 @@ class Home extends Component<{}, HomeState> {
   }
 
   render() {
-    if (this.state.error) {
-      return (
-        <div>
-          <h3>Ooppsie wooppsie!</h3>
-          <p>{this.state.error.toString()}</p>
-        </div>
-      );
-    }
-    if (this.state.posts) {
-      return (
-        <PostGrid posts={this.state.posts} />
-      );
-    }
-    return <p>Loading...</p>;
+    const { error, posts } = this.state;
+    return (
+      <Loader error={error} isLoading={!posts}>
+        {posts && <PostGrid posts={posts} />}
+      </Loader>
+    );
   }
 
   async componentDidMount() {
