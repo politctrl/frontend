@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import qs from 'query-string';
 import { request } from '../Requests';
 import { IAccount, IPost } from '../models';
 import AccountHeader from '../AccountHeader';
 import PostGrid from '../PostGrid';
 import Loader from '../Loaders';
+import { Pagination } from '../Pagination';
 
 interface AccountProps {
   match: {
@@ -11,40 +13,50 @@ interface AccountProps {
       id: number;
     };
   };
+  location: {
+    search: string;
+  };
 }
 
-interface AccountState {
-  account: IAccount | null;
-  posts: IPost[] | null;
-  error: any | null;
+interface AccountQuerystringParsed {
+  page?: number;
 }
 
-class Account extends Component<AccountProps, AccountState> {
-  componentWillMount() {
-    // makes this.state not null
-    this.setState({ account: null, posts: null, error: null });
+const Account = ({ match, location }: AccountProps) => {
+  const [account, setAccount] = useState(null);
+  const [posts, setPosts] = useState(null);
+  const [error, setError] = useState(null);
+  const { page } = qs.parse(location.search) as AccountQuerystringParsed;
+  const [currentPage, setCurrentPage] = useState(page || 0);
+
+  const update = () => {
+    // account info doesn't update with page change ;)
+    if (!account) {
+      request(`account/${match.params.id}`)
+        .then(setAccount)
+        .catch(setError);
+    }
+    request(`posts/account/${match.params.id}`, { page: currentPage })
+      .then(setPosts)
+      .catch(setError);
+  };
+
+  if (!posts && !account && !error) {
+    update();
+    // if page number changed
+  } else if ((page || 0) !== currentPage) {
+    setPosts(null);
+    setCurrentPage(page || 0);
+    update();
   }
 
-  render() {
-    const { error, account, posts } = this.state;
-    return (
-      <Loader error={error} isLoading={!account && !posts}>
-        <div>
-          { account && <AccountHeader account={account} /> }
-          { posts && <PostGrid posts={posts} /> }
-        </div>
-      </Loader>
-    );
-  }
-
-  async componentDidMount() {
-    request(`account/${this.props.match.params.id}`)
-      .then(account => this.setState({ account }))
-      .catch(error => this.setState({ error }));
-    request(`posts/account/${this.props.match.params.id}`)
-      .then(posts => this.setState({ posts }))
-      .catch(error => this.setState({ error }));
-  }
-}
+  return (
+    <Loader error={error} isLoading={!account && !posts}>
+      { account && <AccountHeader account={account} /> }
+      { posts && <PostGrid posts={posts} /> }
+      <Pagination currentPage={currentPage} />
+    </Loader>
+  );
+};
 
 export default Account;

@@ -1,4 +1,4 @@
-import qs from 'querystring';
+import qs from 'query-string';
 
 export const request = (method: string, params: {} = {}) =>
   fetch(`${process.env.REACT_APP_API_SERVER}/v1/${method}/?${qs.stringify(params)}`)

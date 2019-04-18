@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import qs from 'query-string';
 import { request } from '../Requests';
 import { IAccountOwner, IPost } from '../models';
 import AccountOwnerHeader from '../AccountOwnerHeader';
 import PostGrid from '../PostGrid';
 import Loader from '../Loaders';
+import { Pagination } from '../Pagination';
 
 interface AccountOwnerProps {
   match: {
@@ -11,40 +13,51 @@ interface AccountOwnerProps {
       id: number;
     };
   };
+  location: {
+    search: string;
+  };
 }
 
-interface AccountOwnerState {
-  accountOwner: IAccountOwner | null;
-  posts: IPost[] | null;
-  error: any | null;
+interface AccountOwnerQuerystringParsed {
+  page?: number;
 }
 
-class AccountOwner extends Component<AccountOwnerProps, AccountOwnerState> {
-  componentWillMount() {
-    // makes this.state not null
-    this.setState({ accountOwner: null, posts: null, error: null });
+const AccountOwner = ({ match }: AccountOwnerProps) => {
+  const [accountOwner, setAccountOwner] = useState(null);
+  const [posts, setPosts] = useState(null);
+  const [error, setError] = useState(null);
+  const { page } = qs.parse(location.search) as AccountOwnerQuerystringParsed;
+  const [currentPage, setCurrentPage] = useState(page || 0);
+
+  const update = () => {
+    if (!accountOwner) {
+      request(`account_owner/${match.params.id}`)
+        .then(setAccountOwner)
+        .catch(setError);
+    }
+    request(`posts/account_owner/${match.params.id}`, { page: currentPage })
+      .then(setPosts)
+      .catch(setError);
   }
 
-  render() {
-    const { error, accountOwner, posts } = this.state;
-    return (
-      <Loader error={error} isLoading={!accountOwner && !posts}>
-        <div>
-          {accountOwner && <AccountOwnerHeader accountOwner={accountOwner} />}
-          {posts && <PostGrid posts={posts} />}
-        </div>
-      </Loader>
-    );
+  if (!posts && !accountOwner && !error) {
+    update();
+    // if page number changed
+  } else if ((page || 0) !== currentPage) {
+    setPosts(null);
+    setCurrentPage(page || 0);
+    update();
   }
 
-  async componentDidMount() {
-    request(`account_owner/${this.props.match.params.id}`)
-      .then(accountOwner => this.setState({ accountOwner }))
-      .catch(error => this.setState({ error }));
-    request(`posts/account_owner/${this.props.match.params.id}`)
-      .then(posts => this.setState({ posts }))
-      .catch(error => this.setState({ error }));
-  }
-}
+  return (
+    <Loader error={error} isLoading={!accountOwner && !posts}>
+      <div>
+        {accountOwner && <AccountOwnerHeader accountOwner={accountOwner} />}
+        {posts && <PostGrid posts={posts} />}
+        <Pagination currentPage={currentPage} />
+      </div>
+    </Loader>
+  );
+};
 
 export default AccountOwner;

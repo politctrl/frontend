@@ -1,34 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import qs from 'query-string';
 import { IPost } from '../models';
 import { request } from '../Requests';
 import PostGrid from '../PostGrid';
 import Loader from '../Loaders';
+import { Pagination } from '../Pagination';
 
-interface HomeState {
-  posts: IPost[] | null;
-  error: {} | null;
+interface HomeProps {
+  location: {
+    search: string;
+  };
 }
 
-class Home extends Component<{}, HomeState> {
-  componentWillMount() {
-    // makes this.state not null
-    this.setState({ posts: null, error: null });
-  }
-
-  render() {
-    const { error, posts } = this.state;
-    return (
-      <Loader error={error} isLoading={!posts}>
-        {posts && <PostGrid posts={posts} />}
-      </Loader>
-    );
-  }
-
-  async componentDidMount() {
-    request('posts/deleted')
-      .then(posts => this.setState({ posts }))
-      .catch(error => this.setState({ error }));
-  }
+interface HomeQuerystringParsed {
+  page?: number;
 }
+
+const Home = (props: HomeProps) => {
+  const [posts, setPosts] = useState(null);
+  const [error, setError] = useState(null);
+  const { page } = qs.parse(props.location.search) as HomeQuerystringParsed;
+  const [currentPage, setCurrentPage] = useState(page || 0);
+
+  const update = () => request('posts/deleted', { page: currentPage })
+    .then(setPosts)
+    .catch(setError);
+
+  if (!posts && !error) {
+    update();
+    // on page change
+  } else if ((page || 0) !== currentPage) {
+    setPosts(null);
+    setCurrentPage(page || 0);
+    update();
+  }
+
+  return (
+    <Loader error={error} isLoading={!posts}>
+      {posts && <PostGrid posts={posts} />}
+      <Pagination currentPage={currentPage} />
+    </Loader>
+  );
+};
 
 export default Home;
