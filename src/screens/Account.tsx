@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import qs from 'query-string';
+import { Helmet } from 'react-helmet';
 import { request } from '../Requests';
 import { IAccount, IPost } from '../models';
 import AccountHeader from '../AccountHeader';
@@ -23,11 +24,11 @@ interface AccountQuerystringParsed {
 }
 
 const Account = ({ match, location }: AccountProps) => {
-  const [account, setAccount] = useState(null);
-  const [posts, setPosts] = useState(null);
-  const [error, setError] = useState(null);
+  const [account, setAccount] = useState<IAccount | null>(null);
+  const [posts, setPosts] = useState<IPost[] | null>(null);
+  const [error, setError] = useState<any>(null);
   const { page } = qs.parse(location.search) as AccountQuerystringParsed;
-  const [currentPage, setCurrentPage] = useState(page || 0);
+  const [currentPage, setCurrentPage] = useState<number>(page || 0);
 
   const update = () => {
     // account info doesn't update with page change ;)
@@ -55,6 +56,9 @@ const Account = ({ match, location }: AccountProps) => {
       { account && <AccountHeader account={account} /> }
       { posts && <PostGrid posts={posts} /> }
       <Pagination currentPage={currentPage} />
+      <Helmet>
+        <title>{ account && `@${account.displayName} on ${account.service} ꞏ ` }PolitCtrl</title>
+      </Helmet>
     </Loader>
   );
 };

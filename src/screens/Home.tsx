@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import qs from 'query-string';
+import { Helmet } from 'react-helmet';
 import { IPost } from '../models';
 import { request } from '../Requests';
 import PostGrid from '../PostGrid';
@@ -17,10 +18,10 @@ interface HomeQuerystringParsed {
 }
 
 const Home = (props: HomeProps) => {
-  const [posts, setPosts] = useState(null);
-  const [error, setError] = useState(null);
+  const [posts, setPosts] = useState<IPost[] | null>(null);
+  const [error, setError] = useState<any>(null);
   const { page } = qs.parse(props.location.search) as HomeQuerystringParsed;
-  const [currentPage, setCurrentPage] = useState(page || 0);
+  const [currentPage, setCurrentPage] = useState<number>(page || 0);
 
   const update = () => request('posts/deleted', { page: currentPage })
     .then(setPosts)
@@ -39,6 +40,9 @@ const Home = (props: HomeProps) => {
     <Loader error={error} isLoading={!posts}>
       {posts && <PostGrid posts={posts} />}
       <Pagination currentPage={currentPage} />
+      <Helmet>
+        <title>Home ꞏ PolitCtrl</title>
+      </Helmet>
     </Loader>
   );
 };

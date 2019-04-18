@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import qs from 'query-string';
+import { Helmet } from 'react-helmet';
 import { request } from '../Requests';
 import { IAccountOwner, IPost } from '../models';
 import AccountOwnerHeader from '../AccountOwnerHeader';
@@ -23,11 +24,11 @@ interface AccountOwnerQuerystringParsed {
 }
 
 const AccountOwner = ({ match }: AccountOwnerProps) => {
-  const [accountOwner, setAccountOwner] = useState(null);
-  const [posts, setPosts] = useState(null);
-  const [error, setError] = useState(null);
+  const [accountOwner, setAccountOwner] = useState<IAccountOwner | null>(null);
+  const [posts, setPosts] = useState<IPost[] | null>(null);
+  const [error, setError] = useState<any>(null);
   const { page } = qs.parse(location.search) as AccountOwnerQuerystringParsed;
-  const [currentPage, setCurrentPage] = useState(page || 0);
+  const [currentPage, setCurrentPage] = useState<number>(page || 0);
 
   const update = () => {
     if (!accountOwner) {
@@ -38,7 +39,7 @@ const AccountOwner = ({ match }: AccountOwnerProps) => {
     request(`posts/account_owner/${match.params.id}`, { page: currentPage })
       .then(setPosts)
       .catch(setError);
-  }
+  };
 
   if (!posts && !accountOwner && !error) {
     update();
@@ -55,6 +56,9 @@ const AccountOwner = ({ match }: AccountOwnerProps) => {
         {accountOwner && <AccountOwnerHeader accountOwner={accountOwner} />}
         {posts && <PostGrid posts={posts} />}
         <Pagination currentPage={currentPage} />
+        <Helmet>
+          <title>{ accountOwner && `${accountOwner.displayName} on ` }PolitCtrl</title>
+        </Helmet>
       </div>
     </Loader>
   );
