@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatDistance, format } from 'date-fns';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { IPost } from './models';
 
 interface IPostFooter {
@@ -13,10 +14,24 @@ const Footer = styled.span`
   font-size: 85%;
 `;
 
+const FooterLink = styled(Link)`
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
+`;
+
+const LinkEmojiStyle = styled.img`
+  height: 12px;
+`;
+
+const LinkEmoji = () => <LinkEmojiStyle
+  src="http://twemoji.maxcdn.com/2/72x72/1f517.png"
+  draggable={false} />;
+
 const PostFooter = ({ post }: IPostFooter) => {
   const texts = [];
 
-  const { createTimestamp, deleteTimestamp, app } = post;
+  const { createTimestamp, deleteTimestamp, app, id } = post;
   if (deleteTimestamp) {
     texts.push(`Deleted ${formatDistance(
       parseInt(deleteTimestamp, 10),
@@ -40,7 +55,10 @@ const PostFooter = ({ post }: IPostFooter) => {
   )} ${app ? `via ${app}` : ''}`);
 
   return (
-    <Footer>{ texts.join(' ꞏ ') }</Footer>
+    <Footer>
+      <FooterLink to={`/post/${id}`}>
+        <LinkEmoji />
+      </FooterLink> ꞏ { texts.join(' ꞏ ') }</Footer>
   );
 };
 
