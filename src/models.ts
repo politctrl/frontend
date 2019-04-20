@@ -9,6 +9,8 @@ export interface IPost {
   deleted: boolean;
   deleteTimestamp: string | null;
   app?: string;
+  originalUrl?: string;
+  archiveUrl?: string;
 }
 
 export interface IEmbed {

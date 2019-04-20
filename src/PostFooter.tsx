@@ -20,18 +20,28 @@ const FooterLink = styled(Link)`
   text-decoration: none;
 `;
 
-const LinkEmojiStyle = styled.img`
+const FooterALink = styled.a`
+  color: inherit;
+  font-family: inherit;
+  text-decoration: none;
+`;
+
+const EmojiStyle = styled.img`
   height: 12px;
 `;
 
-const LinkEmoji = () => <LinkEmojiStyle
-  src="http://twemoji.maxcdn.com/2/72x72/1f517.png"
+const LinkEmoji = () => <EmojiStyle
+  src="https://twemoji.maxcdn.com/2/72x72/1f517.png"
+  draggable={false} />;
+
+const CardIndexEmoji = () => <EmojiStyle
+  src="https://twemoji.maxcdn.com/2/72x72/1f5c2.png"
   draggable={false} />;
 
 const PostFooter = ({ post }: IPostFooter) => {
   const texts = [];
 
-  const { createTimestamp, deleteTimestamp, app, id } = post;
+  const { createTimestamp, deleteTimestamp, app, id, archiveUrl } = post;
   if (deleteTimestamp) {
     texts.push(`Deleted ${formatDistance(
       parseInt(deleteTimestamp, 10),
@@ -58,7 +68,10 @@ const PostFooter = ({ post }: IPostFooter) => {
     <Footer>
       <FooterLink to={`/post/${id}`}>
         <LinkEmoji />
-      </FooterLink> ꞏ { texts.join(' ꞏ ') }</Footer>
+      </FooterLink> { archiveUrl
+      && <FooterALink href={archiveUrl}>
+        <CardIndexEmoji />
+      </FooterALink> } ꞏ { texts.join(' ꞏ ') }</Footer>
   );
 };
 
