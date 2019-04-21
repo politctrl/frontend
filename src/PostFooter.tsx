@@ -10,8 +10,11 @@ interface IPostFooter {
 
 const Footer = styled.span`
   color: ${props => props.theme.textColor};
-  opacity: 0.5;
   font-size: 85%;
+
+  span {
+    opacity: 0.5;
+  }
 `;
 
 const FooterLink = styled(Link)`
@@ -71,7 +74,7 @@ const PostFooter = ({ post }: IPostFooter) => {
       </FooterLink> { archiveUrl
       && <FooterALink href={archiveUrl}>
         <CardIndexEmoji />
-      </FooterALink> } ꞏ { texts.join(' ꞏ ') }</Footer>
+      </FooterALink> } <span>{ ' ꞏ ' + texts.join(' ꞏ ') }</span></Footer>
   );
 };
 
