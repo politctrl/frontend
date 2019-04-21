@@ -44,19 +44,23 @@ const CardIndexEmoji = () => <EmojiStyle
 const PostFooter = ({ post }: IPostFooter) => {
   const texts = [];
 
-  const { createTimestamp, deleteTimestamp, app, id, archiveUrl } = post;
-  if (deleteTimestamp) {
-    texts.push(`Deleted ${formatDistance(
-      parseInt(deleteTimestamp, 10),
-      parseInt(createTimestamp, 10),
-      { addSuffix: true },
-    )}, ${formatDistance(
-      parseInt(deleteTimestamp, 10),
-      new Date(),
-      { addSuffix: true },
-    )}`);
+  const { createTimestamp, deleted, deleteTimestamp, app, id, archiveUrl } = post;
+  if (deleted) {
+    if (deleteTimestamp) {
+      texts.push(`Deleted ${formatDistance(
+        parseInt(deleteTimestamp, 10),
+        parseInt(createTimestamp, 10),
+        { addSuffix: true },
+      )}, ${formatDistance(
+        parseInt(deleteTimestamp, 10),
+        new Date(),
+        { addSuffix: true },
+      )}`);
+    } else {
+      texts.push('Deleted on unknown time');
+    }
   } else {
-    texts.push('Deleted on unknown time');
+    texts.push('Not deleted (yet)');
   }
   texts.push(`Posted on ${format(
     parseInt(createTimestamp, 10),
